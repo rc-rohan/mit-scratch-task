@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { MidArea } from "./components/MidArea/MidArea";
 import PreviewArea from "./components/PreviewArea";
 import { DragDropContext } from "react-beautiful-dnd";
+import { ACTION_CTA_LIST } from "./statics/GlobalStatics";
 
 const styles = {
   container: 'mit__scratch__task__mid-area__container',
-  // sideba
 }
 
 // actionCard: {
@@ -26,6 +26,10 @@ const App = () => {
   const [actionCard, setActionCard] = useState({});
   const [actionCardIds, setActionCardIds] = useState([])
   const [sidebarActionCtaList, setSidebarActionCtaList] = useState([]);
+
+  useEffect(() => {
+    setSidebarActionCtaList(ACTION_CTA_LIST)
+  },[])
   
   // set the sprite to initial position.
 
@@ -41,19 +45,20 @@ const App = () => {
       && destination.index === source.index) {
       return;
     }
-
-    const actionCtaItem = actionCtaList[source.droppableId];
+    
+    const actionCtaItem = sidebarActionCtaList[source.index];
+    console.log('actionCtaItem: ', actionCtaItem)
     // update the card action list item.
-    // setActionItem((prevState) => ([
-    //   ...prevState,
-    //   [destination.droppableId]: {
-    //     ...prevState[destination.droppableId],
-    //     actionItem: [
-    //       ...prevState[destination.droppableId].actionItem,
-    //       actionCtaItem,
-    //     ]
-    //   }
-    // ]))
+    setActionCard((prevState) => ({
+      ...prevState,
+      [destination.droppableId]: {
+        ...prevState[destination.droppableId],
+        actionItem: [
+          ...prevState[destination.droppableId].actionItem,
+          actionCtaItem,
+        ]
+      }
+    }))
   }
 
   return (

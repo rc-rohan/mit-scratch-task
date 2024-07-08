@@ -4,6 +4,7 @@ import stringTemplate from 'string-template';
 import { PlayArrow } from "@mui/icons-material";
 import { v4 as uuidV4} from 'uuid';
 import classNames from 'classnames';
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { BUTTON_SIZE, BUTTON_VARIANT, CARD_VARIANT, TYPOGRAPHY_VARIANT } from "../../statics/CommonEnums";
 import { MID_AREA_STATICS } from "./MidAreaStatics";
@@ -23,7 +24,9 @@ const styles = {
     headerContainer: 'mit__scratch__task__mid-area__action-card__header-container',
     title: 'mit__scratch__task__mid-area__action-card__title',
     runAllActionCta: 'mit__scratch__task__mid-area__action-card__run-all-action-cta',
+    actionItemWrapper: 'mit__scratch__task__mid-area__action-card__action-item-wrapper',
     actionItem: 'mit__scratch__task__mid-area__action-card__action-item',
+    placeHolderText: 'mit__scratch__task__mid-area__action-card__placeholder-text',
   }
 }
 
@@ -108,7 +111,7 @@ const MidArea = (props) => {
     <Draggable 
       id={item.id}
       index={index}
-      key={item.id}
+      key={`${item.id}-${index}`}
       draggableId={item.id}
     >
       {(provided) => (
@@ -116,9 +119,8 @@ const MidArea = (props) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={styles.actionItemWrapper}
+          className={styles.actionCard.actionItemWrapper}
         >
-          {/* <TextField label={}/> */}
           <Typography
             variant={TYPOGRAPHY_VARIANT.BODY1}
             className={styles.actionItem}
@@ -132,15 +134,34 @@ const MidArea = (props) => {
 
   
   const getActionCard = ( cardId, index ) => (
-    <Card 
-      key={cardId}
-      variant={CARD_VARIANT.OUTLINED}
-      className={styles.actionCard.container}
+    <Droppable 
+      key={index}
+      droppableId={cardId}
     >
-      {getCardHeaderView(index)}
-      <Divider/>
-      {actionCard[cardId]?.actionItem?.map(getActionCta)}
-    </Card>
+      {(provided) => (
+        <Card 
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          key={cardId}
+          variant={CARD_VARIANT.OUTLINED}
+          className={styles.actionCard.container}
+        >
+          {getCardHeaderView(index)}
+          <Divider/>
+          {actionCard[cardId]?.actionItem.length === 0 ? (
+            <Typography 
+              variant={TYPOGRAPHY_VARIANT.H7}
+              className={styles.actionCard.placeHolderText}
+            >
+              {MID_AREA_STATICS.ACTION_CARD.placeHolderText}
+            </Typography>
+          ) : (
+            actionCard[cardId]?.actionItem?.map(getActionCta)
+          )}
+          {provided.placeholder}
+        </Card>
+      )}
+    </Droppable>
   );
 
   const getActionCardListView = () => (

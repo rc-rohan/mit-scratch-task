@@ -30,7 +30,7 @@
 
     &__action-card {
         &__container {
-            min-width: 16rem;
+            width: 16rem;
             padding: .4rem;
         }
 
@@ -43,9 +43,21 @@
             justify-content: space-between;
             margin-bottom: .4rem;
         }
+        
+        &__placeholder-text {
+            color: rgb(131, 127, 127);
+            padding: 1rem;
+        }
 
-        &__action-item{
+        &__action-item-wrapper {
+            padding: .8rem;
+            background-color: lightblue;
+            border-radius: .4rem;
+            margin-top: .4rem;
+        }
+    
+        &__action-item {
 
-        }        
+        }   
     }
 }

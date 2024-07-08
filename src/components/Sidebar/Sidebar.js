@@ -28,10 +28,14 @@ const Sidebar = () => {
 
   const getActionItem = (item, index) => (
     <Draggable 
+      // id={`${item.id}-${index}`}
+      // index={`${item.id}-${index}`}
+      // key={`${item.id}-${index}`}
+      // draggableId={item.id}
       id={item.id}
       index={index}
-      key={item.id}
-      draggableId={item.id}
+      key={`${item.id}-${index}`}
+      draggableId={`${item.id}-${index}`}
     >
       {(provided) => (
         <div
@@ -40,7 +44,6 @@ const Sidebar = () => {
           {...provided.dragHandleProps}
           className={styles.actionItemWrapper}
         >
-          {/* <TextField label={}/> */}
           <Typography
             variant={TYPOGRAPHY_VARIANT.BODY1}
             className={styles.actionItem}

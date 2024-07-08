@@ -7,5 +7,6 @@ export const MID_AREA_STATICS = {
         id: 'midDroppableArea',
         title: 'Action List {number}',
         runActionCta: 'Run',
+        placeHolderText: 'No Action Items present. Drag and Drop action items from sidebar to show it here.'
     }
 }
