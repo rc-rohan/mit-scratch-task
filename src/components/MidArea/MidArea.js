@@ -36,6 +36,7 @@ const MidArea = (props) => {
     actionCardIds,
     setActionCardIds,
     setActionCard,
+    onPlayActionCard,
     className
   } = props;
 
@@ -62,8 +63,8 @@ const MidArea = (props) => {
     }))
   }
 
-  const handleRunActionCard = () => {
-    
+  const handleRunActionCard = (cardId) => {
+    onPlayActionCard(actionCard[cardId].actionItem)
   }
 
   const getHeaderView = () => (
@@ -85,7 +86,7 @@ const MidArea = (props) => {
     </div>
   )
 
-  const getCardHeaderView = (index) => (
+  const getCardHeaderView = (index, cardId) => (
     <div className={styles.actionCard.headerContainer}>
       <Typography
         variant={TYPOGRAPHY_VARIANT.H6}
@@ -99,7 +100,7 @@ const MidArea = (props) => {
         variant={BUTTON_VARIANT.CONTAINED}
         size={BUTTON_SIZE.SMALL}
         endIcon={<PlayArrow/>}
-        onClick={handleRunActionCard}
+        onClick={() => handleRunActionCard(cardId)}
         className={styles.actionCard.runAllActionCta}
       >
         {MID_AREA_STATICS.ACTION_CARD.runActionCta}
@@ -146,7 +147,7 @@ const MidArea = (props) => {
           variant={CARD_VARIANT.OUTLINED}
           className={styles.actionCard.container}
         >
-          {getCardHeaderView(index)}
+          {getCardHeaderView(index, cardId)}
           <Divider/>
           {actionCard[cardId]?.actionItem.length === 0 ? (
             <Typography 

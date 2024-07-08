@@ -25,3 +25,10 @@ export const BUTTON_SIZE = Object.freeze({
 export const CARD_VARIANT = Object.freeze({
     OUTLINED: 'outlined'
 })
+
+export const ACTION_TYPE = Object.freeze({
+    TRNASLATE_X: 'translateX',
+    TRNASLATE_Y: 'translateY',
+    TRANSLATE_ORIGIN: 'translateOrigin',
+    ROTATE: 'rotate',
+})

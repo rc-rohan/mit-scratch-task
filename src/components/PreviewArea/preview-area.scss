@@ -1,0 +1,13 @@
+.mit__scratch__task__preview-area {
+  &__container {
+    padding: 2rem;
+    width: 100%;
+  }
+
+  &__sprite-wrapper {
+    border: 2px solid red;
+    position: relative;
+    width: 8rem;
+    transition: all 1s ease 0s;
+  }
+}

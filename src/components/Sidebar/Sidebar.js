@@ -5,6 +5,7 @@ import { TYPOGRAPHY_VARIANT } from "../../statics/CommonEnums";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import './sidebar.scss';
+import { ACTION_CTA_LIST } from "../../statics/GlobalStatics";
 
 const styles = {
   container: 'mit__scratch__task__sidebar__container',
@@ -64,7 +65,7 @@ const Sidebar = () => {
          {SIDEBAR_STATICS.MOTION_ACTION_CONTAINER.title}
       </Typography>
       <div className={styles.motionActionView.buttonContainer}>
-        {SIDEBAR_STATICS.MOTION_ACTION_CONTAINER.CTA_LIST.map(getActionItem)}
+        {ACTION_CTA_LIST.map(getActionItem)}
       </div>
     </div>
   )
