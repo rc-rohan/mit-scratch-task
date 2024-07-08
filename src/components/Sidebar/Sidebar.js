@@ -1,6 +1,8 @@
 import React from "react";
-import { Button, Divider, Typography } from '@mui/material';
+import { Divider, TextField, Typography } from '@mui/material';
 import { SIDEBAR_STATICS } from "./SidebarStatics";
+import { TYPOGRAPHY_VARIANT } from "../../statics/CommonEnums";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import './sidebar.scss';
 
@@ -17,27 +19,43 @@ const styles = {
     title: 'mit__scratch__task__sidebar__looks__action__view__title',
     buttonContainer: 'mit__scratch__task__sidebar__looks__action__view__button__container'
   },
-  actionItem: 'mit__scratch__task__sidebar___action__item',
+  actionItemWrapper: 'mit__scratch__task__sidebar__action-item-wrapper',
+  actionItem: 'mit__scratch__task__sidebar__action-item',
 }
 
 
 const Sidebar = () => {
 
-  const getActionItem = (item) => (
-      <Button
-        variant='contained'
-        size='large'
-        // onClick={onConnectNowCtaClick}
-        className={styles.actionItem}
-      >
-        {item.label}
-      </Button>
+  const getActionItem = (item, index) => (
+    <Draggable 
+      id={item.id}
+      index={index}
+      key={item.id}
+      draggableId={item.id}
+    >
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className={styles.actionItemWrapper}
+        >
+          {/* <TextField label={}/> */}
+          <Typography
+            variant={TYPOGRAPHY_VARIANT.BODY1}
+            className={styles.actionItem}
+          >
+           {item.label}
+          </Typography>
+        </div>
+      )}
+    </Draggable>
   );
 
   const getMotionActionView = () => (
     <div className={styles.motionActionView.container}>
       <Typography 
-        variant="h6" 
+        variant={TYPOGRAPHY_VARIANT.H6} 
         className={styles.motionActionView.title}
       >
          {SIDEBAR_STATICS.MOTION_ACTION_CONTAINER.title}
@@ -51,7 +69,7 @@ const Sidebar = () => {
   const getLooksActionView = () => (
     <div className={styles.looksActionView.container}>
       <Typography 
-        variant="h6" 
+        variant={TYPOGRAPHY_VARIANT.H6} 
         className={styles.looksActionView.title}
       >
          {SIDEBAR_STATICS.LOOKS_ACTION_CONTAINER.title}
@@ -64,9 +82,19 @@ const Sidebar = () => {
 
   return (
     <div className={styles.container}>
-      {getMotionActionView()}
-      <Divider/>
-      {getLooksActionView()}
+      <Droppable droppableId="sidebar">
+        {(provided) => (
+          <div 
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {getMotionActionView()}
+            <Divider/>
+            {getLooksActionView()}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 }

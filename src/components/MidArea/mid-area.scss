@@ -1,0 +1,51 @@
+.mit__scratch__task__mid-area {
+    &__container {
+       background-color: azure;
+       width: 100%;
+       padding: 1rem;
+    }
+
+    &__header {
+        &__container {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+        }
+        
+        &__title {
+
+        }
+
+        &__addCta {
+
+        }
+    }
+
+    &__action-card-list-wrapper {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6rem;
+    }
+
+    &__action-card {
+        &__container {
+            min-width: 16rem;
+            padding: .4rem;
+        }
+
+        &__content-wrapper {
+            
+        }
+
+        &__header-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: .4rem;
+        }
+
+        &__action-item{
+
+        }        
+    }
+}

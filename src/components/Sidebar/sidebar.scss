@@ -2,7 +2,7 @@
     &__container {
         border: 1px solid #333;
         border-radius: 4px;
-        width: 16rem;
+        width: 20rem;
     }
 
     &__motion__action__view {
@@ -51,7 +51,12 @@
         }
     }
 
-    &__action__item {
+    &__action-item-wrapper {
+        padding: 1rem;
+        background-color: rgb(242, 245, 104);
+        border-radius: .4rem;
+    }
 
+    &__action-item {
     }
 }
