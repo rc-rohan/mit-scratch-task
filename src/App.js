@@ -119,7 +119,6 @@ const App = () => {
             <PreviewArea 
               ref={spriteRef}
               spriteId={SPRITE_WRAPPER_ID}
-              spriteStyles={spriteStyles}
             />
           </div>
         </div>
