@@ -55,8 +55,11 @@ const App = () => {
     let rotate = 0;
     let count = 0;
 
-    if (spriteRef.current) {
-      spriteRef.current.style.transform = `scale(${scale}) translate(${x}%, ${y}%) rotate(${rotate}deg)`;
+    if (spriteRef.current && (x != 0 || y !=0 || rotate != 0 || message.length != 0) ) {
+      setTimeout(() => {
+        setMessage('');
+        spriteRef.current.style.transform = `scale(${scale}) translate(${0}%, ${0}%) rotate(${0}deg)`;
+      }, 1000);
     }
 
     actionItems.forEach((item, index) => {
