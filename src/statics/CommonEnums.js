@@ -29,6 +29,8 @@ export const CARD_VARIANT = Object.freeze({
 export const ACTION_TYPE = Object.freeze({
     TRNASLATE_X: 'translateX',
     TRNASLATE_Y: 'translateY',
+    TRNASLATE_XY: 'translateXY',
     TRANSLATE_ORIGIN: 'translateOrigin',
+    MESSAGE: 'message',
     ROTATE: 'rotate',
 })

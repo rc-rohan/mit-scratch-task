@@ -165,11 +165,20 @@ const MidArea = (props) => {
     </Droppable>
   );
 
-  const getActionCardListView = () => (
+  const getActionCardListView = () => {
+    if(actionCardIds.length == 0){
+      return (
+        <Typography variant={TYPOGRAPHY_VARIANT.BODY1}>
+          {MID_AREA_STATICS.cardListPlaceHolderText}
+        </Typography>
+      )
+    }
+    return (
       <div className={styles.actionCardListWrapper}>
         {actionCardIds?.map(getActionCard)}
       </div>
-  );
+    )
+  };
   
 
   return (

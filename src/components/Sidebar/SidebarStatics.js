@@ -1,29 +1,7 @@
 export const SIDEBAR_STATICS = {
+    header: 'Sidebar',
     MOTION_ACTION_CONTAINER: {
         title: 'Motion',
-        CTA_LIST: [
-            {
-                id: 'translate',
-                label: '50 steps forward',
-                action: 50,
-            },
-            {
-                id: 'translate',
-                label: '50 steps backward',
-                action: -50,
-            },
-            {
-                id: 'translate',
-                label: 'Orgin',
-                action: 0,
-            },
-            {
-                id: 'rotate',
-                label: 'Rotate 50 deg',
-                direction: 'x',
-                action: 50,
-            },
-        ]
     },
     LOOKS_ACTION_CONTAINER: {
         title: 'Looks',

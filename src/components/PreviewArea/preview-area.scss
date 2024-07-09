@@ -2,12 +2,22 @@
   &__container {
     padding: 2rem;
     width: 100%;
+    overflow: auto;
   }
 
   &__sprite-wrapper {
-    border: 2px solid red;
+    // border: 1px solid red;
     position: relative;
     width: 8rem;
     transition: all 1s ease 0s;
+  }
+
+  &__message-container {
+    padding: .4rem;
+    border: 1px solid #066558;
+    text-align: center;
+    background-color: rgb(137, 238, 238);
+    border-radius: .4rem;
+    margin-bottom: 1rem;
   }
 }

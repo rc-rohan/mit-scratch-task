@@ -27,7 +27,31 @@ export const ACTION_CTA_LIST = [
   {
     id: 'rotate',
     label: 'Rotate 50 deg',
-    direction: 'x',
     action: 50,
   },
+  {
+    id: 'translateXY',
+    label: 'Move 50 Steps down and right',
+    action: 50,
+  },
+  {
+    id: 'translateXY',
+    label: 'Move 50 Steps up and left',
+    action: -50,
+  },
+  {
+    id: 'message',
+    label: 'Say Hello',
+    action: 'Hello',
+  },
+  {
+    id: 'message',
+    label: 'Say Hi',
+    action: 'Hi',
+  },
+  {
+    id: 'message',
+    label: 'Say Bye',
+    action: 'Bye!!',
+  }
 ];

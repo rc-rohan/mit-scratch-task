@@ -9,6 +9,7 @@ import { ACTION_CTA_LIST } from "../../statics/GlobalStatics";
 
 const styles = {
   container: 'mit__scratch__task__sidebar__container',
+  header: 'mit__scratch__task__sidebar__header',
   motionActionView: {
       container: 'mit__scratch__task__sidebar__motion__action__view__container',
       title: 'mit__scratch__task__sidebar__motion__action__view__title',
@@ -27,12 +28,17 @@ const styles = {
 
 const Sidebar = () => {
 
+  const getHeaderView = () => (
+    <Typography
+      variant={TYPOGRAPHY_VARIANT.H6}
+      className={styles.header}
+    >
+      {SIDEBAR_STATICS.header}
+    </Typography>
+  )
+
   const getActionItem = (item, index) => (
     <Draggable 
-      // id={`${item.id}-${index}`}
-      // index={`${item.id}-${index}`}
-      // key={`${item.id}-${index}`}
-      // draggableId={item.id}
       id={item.id}
       index={index}
       key={`${item.id}-${index}`}
@@ -56,31 +62,9 @@ const Sidebar = () => {
     </Draggable>
   );
 
-  const getMotionActionView = () => (
+  const getActionCtaView = () => (
     <div className={styles.motionActionView.container}>
-      <Typography 
-        variant={TYPOGRAPHY_VARIANT.H6} 
-        className={styles.motionActionView.title}
-      >
-         {SIDEBAR_STATICS.MOTION_ACTION_CONTAINER.title}
-      </Typography>
-      <div className={styles.motionActionView.buttonContainer}>
         {ACTION_CTA_LIST.map(getActionItem)}
-      </div>
-    </div>
-  )
-
-  const getLooksActionView = () => (
-    <div className={styles.looksActionView.container}>
-      <Typography 
-        variant={TYPOGRAPHY_VARIANT.H6} 
-        className={styles.looksActionView.title}
-      >
-         {SIDEBAR_STATICS.LOOKS_ACTION_CONTAINER.title}
-      </Typography>
-      <div className={styles.looksActionView.buttonContainer}>
-        {SIDEBAR_STATICS.LOOKS_ACTION_CONTAINER.CTA_LIST.map(getActionItem)}
-      </div>
     </div>
   )
 
@@ -92,9 +76,8 @@ const Sidebar = () => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {getMotionActionView()}
-            <Divider/>
-            {getLooksActionView()}
+            {getHeaderView()}
+            {getActionCtaView()}
             {provided.placeholder}
           </div>
         )}

@@ -3,6 +3,7 @@ export const MID_AREA_STATICS = {
         title: 'Mid Area',
         addNewListCta: 'Add New Action List',
     },
+    cardListPlaceHolderText: 'Add new action card using Add new action list cta',
     ACTION_CARD: {
         id: 'midDroppableArea',
         title: 'Action List {number}',

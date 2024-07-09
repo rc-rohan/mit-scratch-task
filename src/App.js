@@ -10,25 +10,13 @@ const styles = {
   container: 'mit__scratch__task__mid-area__container',
 }
 
-// actionCard: {
-//   cardId: {
-//     id: cardId,
-//     actionItem: [..cataData],
-//   }
-// }
-
-// actionList = [
-//   id: {
-//     ...ctaData,
-//   }
-// ]
-
 const SPRITE_WRAPPER_ID = 'spriteWrapperId'
 
 const App = () => {
   const [actionCard, setActionCard] = useState({});
   const [actionCardIds, setActionCardIds] = useState([])
   const [sidebarActionCtaList, setSidebarActionCtaList] = useState([]);
+  const [message, setMessage] = useState('');
 
   const spriteRef = useRef(null);
 
@@ -37,9 +25,7 @@ const App = () => {
   },[]);
 
   const handleDragEnd = (result) =>{
-    console.log('result: ', result);
     const {source, destination} = result;
-    console.log(source, destination)
     if (!destination) {
       return;
     }
@@ -50,8 +36,6 @@ const App = () => {
     }
     
     const actionCtaItem = sidebarActionCtaList[source.index];
-    console.log('actionCtaItem: ', actionCtaItem)
-    // update the card action list item.
     setActionCard((prevState) => ({
       ...prevState,
       [destination.droppableId]: {
@@ -65,40 +49,46 @@ const App = () => {
   }
 
   const handleActionCardPlayCta = (actionItems) => {
-    console.log('document.getelementById', document.getElementById(SPRITE_WRAPPER_ID))
-    const el = document.getElementById(SPRITE_WRAPPER_ID);
-    console.log(el.style); 
-    
     let scale = 1;
-    let x = -1;
-    let y = -1;
+    let x = 0;
+    let y = 0;
     let rotate = 0;
     let count = 0;
 
+    if (spriteRef.current) {
+      spriteRef.current.style.transform = `scale(${scale}) translate(${x}%, ${y}%) rotate(${rotate}deg)`;
+    }
 
-    actionItems.map((item, index) => {
-      console.log('insideForeach: ', item);
-      switch (item.id) {
-        case ACTION_TYPE.TRNASLATE_X:
-          console.log('action X');
-          x += actionItems.action;
-          break;
-        case ACTION_TYPE.TRNASLATE_Y: 
-        console.log('action Y');
-          y += actionItems.action;
-        default:
-          console.log('action default');
-          x = 0;
-          y = 0;
-          break;
-      }
+    actionItems.forEach((item, index) => {
+      setTimeout(() => {
+        switch (item.id) {
+          case ACTION_TYPE.TRNASLATE_X:
+            x += item.action;
+            break;
+          case ACTION_TYPE.TRNASLATE_Y: 
+            y += item.action;
+            break;
+            case ACTION_TYPE.TRNASLATE_XY: 
+            y += item.action;
+            x += item.action;
+            break;
+          case ACTION_TYPE.ROTATE: 
+            rotate += item.action;
+            break;
+          case ACTION_TYPE.MESSAGE: 
+            setMessage(item.action);
+            break;
+          default:
+            x = 0;
+            y = 0;
+            break;
+        }
 
+        if (spriteRef.current) {
           spriteRef.current.style.transform = `scale(${scale}) translate(${x}%, ${y}%) rotate(${rotate}deg)`;
-          console.log('Updated styles:', spriteRef.current);
-
-
+        }
+      }, index * 1000); 
     })
-
   }
 
   return (
@@ -119,6 +109,7 @@ const App = () => {
             <PreviewArea 
               ref={spriteRef}
               spriteId={SPRITE_WRAPPER_ID}
+              message={message}
             />
           </div>
         </div>
