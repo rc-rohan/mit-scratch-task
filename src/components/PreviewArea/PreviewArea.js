@@ -19,8 +19,6 @@ const  PreviewArea = forwardRef((props, ref) => {
     message,
   } = props;
 
-  console.log('ref', ref);
-
   const getMessageView = () => (
     <div className={styles.messageContainer}>
       <Typography 

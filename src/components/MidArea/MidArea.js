@@ -40,12 +40,6 @@ const MidArea = (props) => {
     className
   } = props;
 
-  //todo remove
-  useEffect(() => {
-    console.log(actionCard);
-    console.log(actionCardIds);    
-  },[actionCard, actionCardIds])
-
   const handleAddActionCard = () => {
     const uniqueId = uuidV4();
 
