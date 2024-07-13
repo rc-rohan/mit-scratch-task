@@ -17,7 +17,7 @@ export const ACTION_CTA_LIST = [
   {
     id: 'translateY',
     label: '50 steps up',
-    action: 50,
+    action: -50,
   },
   {
     id: 'translateOrigin',

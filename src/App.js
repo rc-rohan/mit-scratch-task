@@ -18,6 +18,12 @@ const App = () => {
   const [sidebarActionCtaList, setSidebarActionCtaList] = useState([]);
   const [message, setMessage] = useState('');
 
+  let scale = 1;
+  let x = 0;
+  let y = 0;
+  let rotate = 0;
+  let count = 0;
+
   const spriteRef = useRef(null);
 
   useEffect(() => {
@@ -49,18 +55,13 @@ const App = () => {
   }
 
   const handleActionCardPlayCta = (actionItems) => {
-    let scale = 1;
-    let x = 0;
-    let y = 0;
-    let rotate = 0;
-    let count = 0;
 
-    if (spriteRef.current && (x != 0 || y !=0 || rotate != 0 || message.length != 0) ) {
-      setTimeout(() => {
-        setMessage('');
-        spriteRef.current.style.transform = `scale(${scale}) translate(${0}%, ${0}%) rotate(${0}deg)`;
-      }, 1000);
-    }
+    // if (spriteRef.current && (x != 0 || y !=0 || rotate != 0 || message.length != 0) ) {
+    //   setTimeout(() => {
+    //     setMessage('');
+    //     spriteRef.current.style.transform = `scale(${scale}) translate(${0}%, ${0}%) rotate(${0}deg)`;
+    //   }, 1000);
+    // }
 
     actionItems.forEach((item, index) => {
       setTimeout(() => {
@@ -99,7 +100,7 @@ const App = () => {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="h-screen overflow-hidden flex flex-row  ">
           <div className="flex-1 h-screen overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
-            <Sidebar />
+            <Sidebar onActionCtaClick={handleActionCardPlayCta}/>
             <MidArea 
               actionCard={actionCard}
               actionCardIds={actionCardIds}

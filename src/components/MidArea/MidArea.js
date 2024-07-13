@@ -10,6 +10,7 @@ import { BUTTON_SIZE, BUTTON_VARIANT, CARD_VARIANT, TYPOGRAPHY_VARIANT } from ".
 import { MID_AREA_STATICS } from "./MidAreaStatics";
 
 import './mid-area.scss'
+import { ActionCta } from "../ActionCta/ActionCta";
 
 const styles = {
   container: 'mit__scratch__task__mid-area__container',
@@ -25,7 +26,6 @@ const styles = {
     title: 'mit__scratch__task__mid-area__action-card__title',
     runAllActionCta: 'mit__scratch__task__mid-area__action-card__run-all-action-cta',
     actionItemWrapper: 'mit__scratch__task__mid-area__action-card__action-item-wrapper',
-    actionItem: 'mit__scratch__task__mid-area__action-card__action-item',
     placeHolderText: 'mit__scratch__task__mid-area__action-card__placeholder-text',
   }
 }
@@ -39,6 +39,23 @@ const MidArea = (props) => {
     onPlayActionCard,
     className
   } = props;
+
+  useEffect(() => {
+    const uniqueId = uuidV4();
+
+    setActionCardIds((prevState) => ([
+      ...prevState,
+      uniqueId,
+    ]));
+
+    setActionCard((prevState) => ({
+      ...prevState,
+      [uniqueId]: {
+        id: uniqueId,
+        actionItem: [],
+      },
+    }))
+  },[])
 
   const handleAddActionCard = () => {
     const uniqueId = uuidV4();
@@ -102,30 +119,30 @@ const MidArea = (props) => {
     </div>
   );
 
-  const getActionCta = (item, index) => (
-    <Draggable 
-      id={item.id}
+  const getActionItem = (item, index) => (
+    <ActionCta
+      onActionCtaClick={onPlayActionCard}
+      ctaData={item}
       index={index}
-      key={`${item.id}-${index}`}
-      draggableId={item.id}
-    >
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          className={styles.actionCard.actionItemWrapper}
-        >
-          <Typography
-            variant={TYPOGRAPHY_VARIANT.BODY1}
-            className={styles.actionItem}
-          >
-           {item.label}
-          </Typography>
-        </div>
-      )}
-    </Draggable>
+      key={index}
+      id={`actionCard-item-${index}-${item.id}`}
+    />
   );
+
+  const getActionCtaView = (cardId) => (
+    <div className={styles.actionCard.actionItemWrapper}>
+      {actionCard[cardId]?.actionItem.length === 0 ? (
+        <Typography 
+          variant={TYPOGRAPHY_VARIANT.H7}
+          className={styles.actionCard.placeHolderText}
+        >
+          {MID_AREA_STATICS.ACTION_CARD.placeHolderText}
+        </Typography>
+        ) : (
+          actionCard[cardId]?.actionItem?.map(getActionItem)
+        )}
+    </div>
+  )
 
   
   const getActionCard = ( cardId, index ) => (
@@ -143,36 +160,18 @@ const MidArea = (props) => {
         >
           {getCardHeaderView(index, cardId)}
           <Divider/>
-          {actionCard[cardId]?.actionItem.length === 0 ? (
-            <Typography 
-              variant={TYPOGRAPHY_VARIANT.H7}
-              className={styles.actionCard.placeHolderText}
-            >
-              {MID_AREA_STATICS.ACTION_CARD.placeHolderText}
-            </Typography>
-          ) : (
-            actionCard[cardId]?.actionItem?.map(getActionCta)
-          )}
+          {getActionCtaView(cardId)}
           {provided.placeholder}
         </Card>
       )}
     </Droppable>
   );
 
-  const getActionCardListView = () => {
-    if(actionCardIds.length == 0){
-      return (
-        <Typography variant={TYPOGRAPHY_VARIANT.BODY1}>
-          {MID_AREA_STATICS.cardListPlaceHolderText}
-        </Typography>
-      )
-    }
-    return (
-      <div className={styles.actionCardListWrapper}>
-        {actionCardIds?.map(getActionCard)}
-      </div>
-    )
-  };
+  const getActionCardListView = () => (
+    <div className={styles.actionCardListWrapper}>
+      {actionCardIds?.map(getActionCard)}
+    </div>
+  )
   
 
   return (

@@ -50,14 +50,10 @@
         }
 
         &__action-item-wrapper {
-            padding: .8rem;
-            background-color: lightblue;
-            border-radius: .4rem;
             margin-top: .4rem;
+            gap: .4rem;
+            display: flex;
+            flex-direction: column;
         }
-    
-        &__action-item {
-
-        }   
     }
 }

@@ -1,11 +1,12 @@
 import React from "react";
-import { Divider, TextField, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { SIDEBAR_STATICS } from "./SidebarStatics";
 import { TYPOGRAPHY_VARIANT } from "../../statics/CommonEnums";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 import './sidebar.scss';
 import { ACTION_CTA_LIST } from "../../statics/GlobalStatics";
+import { ActionCta } from "../ActionCta/ActionCta";
 
 const styles = {
   container: 'mit__scratch__task__sidebar__container',
@@ -26,7 +27,8 @@ const styles = {
 }
 
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+  const { onActionCtaClick } = props;
 
   const getHeaderView = () => (
     <Typography
@@ -38,28 +40,13 @@ const Sidebar = () => {
   )
 
   const getActionItem = (item, index) => (
-    <Draggable 
-      id={item.id}
+    <ActionCta
+      id={`sidebar-item-${index}-${item.id}`}
+      onActionCtaClick={onActionCtaClick}
+      ctaData={item}
       index={index}
-      key={`${item.id}-${index}`}
-      draggableId={`${item.id}-${index}`}
-    >
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          className={styles.actionItemWrapper}
-        >
-          <Typography
-            variant={TYPOGRAPHY_VARIANT.BODY1}
-            className={styles.actionItem}
-          >
-           {item.label}
-          </Typography>
-        </div>
-      )}
-    </Draggable>
+      key={`${index}-sidebar`}
+    />
   );
 
   const getActionCtaView = () => (

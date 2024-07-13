@@ -2,7 +2,7 @@
     &__container {
         border: 1px solid #333;
         border-radius: 4px;
-        width: 20rem;
+        width: 24rem;
         overflow: auto;
         padding-bottom: 2rem;
     }
@@ -31,14 +31,5 @@
 
     &__divider {
         margin-top: 2rem;
-    }
-
-    &__action-item-wrapper {
-        padding: .8rem;
-        background-color: lightblue;
-        border-radius: .4rem;
-    }
-
-    &__action-item {
     }
 }
